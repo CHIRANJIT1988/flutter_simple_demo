@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 
-import '../../model/User.dart';
+import '../../model/food_item_model.dart';
+
 
 class DetailsView extends StatelessWidget {
-  User user;
-  DetailsView(this.user, {super.key});
+  FoodItem food;
+  DetailsView(this.food, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Second Page'),
-      ),
       body: Center(
-        child: Text(user.title),
+        child: Text(food.title),
       ),
     );
   }

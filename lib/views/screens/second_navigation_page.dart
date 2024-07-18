@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:vm_flutter_demo/viewmodel/UserViewModel.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../listview/UserListViewItem.dart';
+import '../../view_model/food_item_view_model.dart';
+import '../listview/food_item_list_view.dart';
 
-class SecondPage extends StatelessWidget {
+
+class SecondPage extends ConsumerWidget {
   const SecondPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final viewModel = Provider.of<UserViewModel>(context);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final viewModel = ref.watch(foodItemViewModelProvider);
 
     return Scaffold(
         body: FutureBuilder(
-          future: viewModel.fetchData(),
+          future: viewModel.fetchFoodItems(),
           builder: (context, snapshot) {
             // Check if data is still loading
             if (snapshot.connectionState == ConnectionState.waiting) {
@@ -30,7 +31,7 @@ class SecondPage extends StatelessWidget {
               );
             }
             // If data has been loaded successfully
-            return UserListViewItem(userList: viewModel.userList);
+            return FoodItemListView(foodItemList: viewModel.foodItemList);
           },
         )
     );
