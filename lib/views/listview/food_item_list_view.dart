@@ -3,11 +3,14 @@ import 'package:go_router/go_router.dart';
 
 import '../../model/food_item_model.dart';
 import '../../router/app_routes.dart';
+import '../utils/image_loader_widget.dart';
 
 
 class FoodItemListView extends StatelessWidget {
   List<FoodItem> foodItemList = [];
-  FoodItemListView({required this.foodItemList, super.key});
+  String pageType;
+
+  FoodItemListView({required this.foodItemList, required this.pageType, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,14 +20,18 @@ class FoodItemListView extends StatelessWidget {
       itemBuilder: (context, index) {
         FoodItem foodItem = foodItemList[index];
         return ListTile(
-          leading: CircleAvatar(
-              radius: 25,
-              backgroundImage: AssetImage(foodItem.completed ? 'assets/mcdonalds.png' : 'assets/starbucks.png')
-          ),
+          leading: loadImage(pageType, foodItem.thumbnail(pageType)),
           title: Text(foodItem.title),
+          trailing: const Icon(Icons.more_vert), // Optionally add a trailing icon
           onTap: () {
             print('Item clicked: ${foodItem.id}');
-            context.push(routePath[AppRoutes.details]!, extra: foodItem);
+            context.push(
+                routePath[AppRoutes.details]!,
+                extra: {
+                  'foodItem': foodItem,
+                  'pageType' : pageType
+                });
+
           },
         );
       },
