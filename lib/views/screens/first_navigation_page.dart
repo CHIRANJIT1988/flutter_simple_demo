@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vm_flutter_demo/utils/page_type.dart';
 
 import '../../view_model/food_item_view_model.dart';
 import '../listview/food_item_card_view.dart';
@@ -31,7 +32,7 @@ class FirstPage extends ConsumerWidget {
               );
             }
             // If data has been loaded successfully
-            return FoodItemCardView(foodItemList: viewModel.foodItemList);
+            return FoodItemCardView(foodItemList: viewModel.foodItemList, pageType: PageType.iceCream.name);
           },
         )
     );

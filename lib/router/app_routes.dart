@@ -32,8 +32,10 @@ final GoRouter router = GoRouter(
         GoRoute(
             path: routePath[AppRoutes.details]!,
             builder: (context, state) {
-              final FoodItem food = state.extra as FoodItem;
-              return DetailsView(food);
+              final args = state.extra as Map<String, dynamic>;
+              final FoodItem food = args['foodItem'] as FoodItem;
+              final String pageType = args['pageType'] as String;
+              return DetailsView(food, pageType);
             }
         ),
         GoRoute(

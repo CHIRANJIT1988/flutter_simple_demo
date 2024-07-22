@@ -11,6 +11,7 @@ FoodItem _$FoodItemFromJson(Map<String, dynamic> json) => FoodItem(
       id: (json['id'] as num).toInt(),
       title: json['title'] as String,
       completed: json['completed'] as bool,
+      amount: (json['amount'] as num?)?.toDouble() ?? 7.5,
     );
 
 Map<String, dynamic> _$FoodItemToJson(FoodItem instance) => <String, dynamic>{
@@ -18,4 +19,5 @@ Map<String, dynamic> _$FoodItemToJson(FoodItem instance) => <String, dynamic>{
       'id': instance.id,
       'title': instance.title,
       'completed': instance.completed,
+      'amount': instance.amount,
     };
