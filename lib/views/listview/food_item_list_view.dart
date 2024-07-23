@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../model/food_item_model.dart';
 import '../../router/app_routes.dart';
-import '../utils/image_loader_widget.dart';
+import '../widgets/image_loader_widget.dart';
 
 
 class FoodItemListView extends StatelessWidget {
@@ -20,7 +20,7 @@ class FoodItemListView extends StatelessWidget {
       itemBuilder: (context, index) {
         FoodItem foodItem = foodItemList[index];
         return ListTile(
-          leading: loadImage(pageType, foodItem.thumbnail(pageType)),
+          leading: CircularImage(url: foodItem.thumbnail(pageType), isNetworkImage: isNetworkImage(pageType)),
           title: Text(foodItem.title),
           trailing: const Icon(Icons.more_vert), // Optionally add a trailing icon
           onTap: () {

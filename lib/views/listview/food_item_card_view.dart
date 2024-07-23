@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:vm_flutter_demo/views/utils/image_loader_widget.dart';
+import 'package:vm_flutter_demo/views/widgets/image_loader_widget.dart';
 
 import '../../model/food_item_model.dart';
 import '../../router/app_routes.dart';
@@ -36,10 +36,7 @@ class ListCardView extends StatelessWidget {
       elevation: 2.0, // Controls the shadow depth
       margin: const EdgeInsets.all(8), // Adjust margin as needed
       child: ListTile(
-        leading: ClipRRect(
-            borderRadius: BorderRadius.circular(10.0),
-            child: loadThumbnail(pageType, foodItem.thumbnail(pageType))
-        ),
+        leading: SquareImage(url: foodItem.thumbnail(pageType), isNetworkImage: isNetworkImage(pageType)),
         title: Text(
             foodItem.name(pageType),
             style: const TextStyle(

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:vm_flutter_demo/views/utils/image_loader_widget.dart';
+import 'package:vm_flutter_demo/views/widgets/image_loader_widget.dart';
 
 import '../../model/food_item_model.dart';
+import '../widgets/cart_stepper_widget.dart';
 
 class DetailsView extends StatelessWidget {
   FoodItem foodItem;
@@ -29,34 +30,17 @@ class MyDetailsPage extends StatefulWidget {
 class _MyDetailsPageState extends State<MyDetailsPage> {
   int _itemCount = 0;
 
-  void _addToCart() {
-    setState(() {
-      _itemCount++;
-    });
-  }
-
-  void _removeFromCart() {
-    setState(() {
-      if (_itemCount != 0) {
-        _itemCount--;
-      }
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Padding(
+    return SingleChildScrollView(
+        child: Padding(
             padding: const EdgeInsets.all(12),
             child: SafeArea(
                 child: Column(
                   children: [
                     Align(
                       alignment: Alignment.topCenter,
-                      child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10.0),
-                          child: loadThumbnail(widget.pageType, widget.foodItem.thumbnail(widget.pageType))
-                      ),
+                      child: SquareImage(url: widget.foodItem.thumbnail(widget.pageType), isNetworkImage: isNetworkImage(widget.pageType)),
                     ),
                     Center(
                         child: Padding(
@@ -96,42 +80,24 @@ class _MyDetailsPageState extends State<MyDetailsPage> {
                           ),
                         )
                     ),
-                    cartWidget()
+                    CartWidget(
+                      removeFromCart: () {
+                        setState(() {
+                          if (_itemCount != 0) {
+                            _itemCount--;
+                          }
+                        });
+                      },
+                      addToCart: () {
+                        setState(() {
+                          _itemCount++;
+                        });
+                      },
+                      itemCount: _itemCount,)
                   ],
                 )
             )
         )
-    );
-  }
-
-  Widget cartWidget() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        FloatingActionButton(
-          onPressed: _removeFromCart,
-          tooltip: 'Remove',
-          backgroundColor: Colors.red,
-          child: const Icon(Icons.remove),
-        ),
-        Padding(
-            padding: const EdgeInsets.all(18),
-            child: Text(
-                '$_itemCount',
-                style: const TextStyle(
-                    fontSize: 28.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black
-                )
-            )
-        ),
-        FloatingActionButton(
-          onPressed: _addToCart,
-          tooltip: 'Add',
-          backgroundColor: Colors.green,
-          child: const Icon(Icons.add),
-        ),
-      ],
     );
   }
 }

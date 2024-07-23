@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../model/food_item_model.dart';
 import '../../router/app_routes.dart';
-import '../utils/image_loader_widget.dart';
+import '../widgets/image_loader_widget.dart';
 
 
 class FoodItemGridView extends StatelessWidget {
@@ -53,7 +53,8 @@ class GridCardView extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          loadImage(pageType, foodItem.thumbnail(pageType)),
+          //loadImage(pageType, foodItem.thumbnail(pageType)),
+          CircularImage(url: foodItem.thumbnail(pageType), isNetworkImage: isNetworkImage(pageType)),
           const SizedBox(height: 10.0),
           Text(
             foodItem.name(pageType),
