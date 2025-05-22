@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vm_flutter_demo/network/food_item_repository.dart';
 
 import '../model/food_item_model.dart';
-
+import '../network/repository/food_item_repository.dart';
 
 class FoodItemViewModel extends ChangeNotifier {
   final FoodItemRepository _repository;
@@ -15,8 +13,3 @@ class FoodItemViewModel extends ChangeNotifier {
     return foodItemList = await _repository.fetchFoodItems();
   }
 }
-
-final foodItemViewModelProvider = ChangeNotifierProvider<FoodItemViewModel>((ref) {
-  final provider = ref.watch(foodItemRepositoryProvider);
-  return FoodItemViewModel(provider);
-});
